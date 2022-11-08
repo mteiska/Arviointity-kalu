@@ -37,6 +37,12 @@ def initiate_problem_list(treedata):
     category = virheet['violations'][0]['category']
     treedata.Insert("", 'Toiminnallisuus', 'Toiminnallisuus',
         [0])
+    c = Category()
+    c.category = category
+    c.category_sum = 0
+    c.status = "OK"
+    category_list.append(c)
+
     for i in virheet['violations']:
         if category != i['category']:
             treedata.Insert("", i['category'], i['category'],[0])

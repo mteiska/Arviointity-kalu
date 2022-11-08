@@ -13,6 +13,7 @@ import GradingGUI_library as guilib
 #V0.3.0 New dependency pyperclip and added ability to copy moodle text straight from UI.
 #V0.3.1 Fixed bug with copy function.
 #V0.3.2 Fixed another bug with copy function and changed file path split to fix problems.
+#V0.3.3 Fixed first category not copying properly.
 sg.theme('BlueMono')      
 font = ("Arial", 11)
 
