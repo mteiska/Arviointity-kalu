@@ -1,0 +1,722 @@
+
+{
+	"violations": [
+
+		{
+			"ID": "TO0100",
+			"text": "Kovakoodattu tuloksia",
+			"category": "Toiminnallisuus",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TO0101",
+			"text": "Kovakoodattu tiedoston nimi",
+			"category": "Toiminnallisuus",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TO0102",
+			"text": "Kovakoodattu päivämäärä",
+			"category": "Toiminnallisuus",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "TR0200",
+			"text": "Lähdekooditiedostoja puuttuu",
+			"category":"Tiedostorakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TR0201",
+			"text": "Pääohjelmatiedostossa vain kutsu kirjastoon",
+			"category":"Tiedostorakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0202",
+			"text": "import ei ole päätasolla",
+			"category":"Tiedostorakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			},"exclude": ["TR0203",
+						"TR0201","TR0200"
+			]
+
+		},
+		{
+			"ID": "TR0203",
+			"text": "import ei tiedoston alussa (ei ennen aliohjelmia ja luokkia)",
+			"category":"Tiedostorakenne",
+			"error_values": {
+				"1": 0.7,
+				"All": 1
+			}
+		},
+		{
+			"ID": "TR0204",
+			"text": "Sisällytetään kurssilla käsittelemätön kirjasto",
+			"category":"Tiedostorakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "AK0300",
+			"text": "Alkukommentti puuttuu tiedostosta",
+			"category":"Alkukommentit",
+			"error_values": {
+				"1": 1,
+				"All":2
+			},
+			"exclude": ["AK0301",
+				"AK0302","AK0303"
+	]
+
+		},
+		{
+			"ID": "AK0301",
+			"text": "Alkukommentista puuttuu tekijätietoja",
+			"category":"Alkukommentit",
+			"error_values": {
+				"1": 1
+				,"All":2
+			}
+		},
+		{
+			"ID": "AK0302",
+			"text": "Alkukommentista puuttuu pvm tai yhteistyö",
+			"category":"Alkukommentit",
+			"error_values": {
+				"1": 0
+			}
+		},
+		{
+			"ID": "AK0303",
+			"text": "Alkukommentista puuttuu loppuosa",
+			"category":"Alkukommentit",
+			"error_values": {
+				"1": 1,
+				"All":2
+			}
+		}, {
+			"ID": "AL0400",
+			"text": "Ei paaohjelmaa",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+
+		},
+		{
+			"ID": "AL0401",
+			"text": "Kirjastossa alle 3 aliohjelmaa",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+
+		},
+		{
+			"ID": "AL0402",
+			"text": "Kirjastossa alle 4 aliohjelmaa",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 1
+			}
+		},
+		{
+			"ID": "AL0403",
+			"text": "Aliohjelma ei tee valinnan mukaista asiaa",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"All": 2
+			}
+		},
+		{
+			"ID": "AL0404",
+			"text": "Valinnan toiminnallisuus pilkottu useaan valintaan",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 1
+
+			}
+
+		},
+		{
+			"ID": "AL0405",
+			"text": "Rivimäärä-aliohjelma",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 1
+			}
+		},
+		{
+			"ID": "AL0406",
+			"text": "Aliohjelma kutsuu toisen valinnan aliohjelmaa (esim. tallennus analyysiä)",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "AL0407",
+			"text": "Tiedostonnimen kysyvä aliohjelma puuttuu",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 1,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PO0500",
+			"text": "Minimiä ja/tai maksimia ei alusteta lainkaan",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7,
+				"2": 1
+			},
+			"exclude":["PO0501"]
+		},
+		{
+			"ID": "PO0501",
+			"text": "Min/max päivämäärä ei alusteta",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7
+
+			},
+			"exclude":["PO0500"]
+		},
+		{
+			"ID": "PO0502",
+			"text": "Yhtäsuurista arvoista ei valita aiempaan ajankohtaan",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7
+
+			}
+
+		},
+		{
+			"ID": "PO0503",
+			"text": "Arvojen alustus muulla kuin ensimmäisellä alkiolla",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7
+			}
+		},
+		{
+			"ID": "PO0504",
+			"text": "Silmukassa indeksi muuttuu muulla kuin 1",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 1
+
+			}
+		},
+		{
+			"ID": "PO0505",
+			"text": "Ei vakiokokoisen listan pituus alustettu etukäteen",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "PO0506",
+			"text": "Laskennassa +1 tai -1 ilman syytä",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PO0507",
+			"text": "Analyysissä pieni if-pyramidi",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7,
+				"2": 1
+			}
+		},
+		{
+			"ID": "PO0508",
+			"text": "Koko analyysi pelkällä if pyramidilla",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "PO0509",
+			"text": "Viikonpäiville (tai muulle yli 5 asialle) erilliset muuttujat",
+			"category":"Perusoperaatiot ja analyysi(n toteutus)",
+			"error_values": {
+				"1": 0.7
+
+			}
+
+		},
+		{
+			"ID": "TV0600",
+			"text": "Tallennukseen lähetetään luettu tieto, ei analysoitu",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 2,
+				"All": 2
+
+			}
+
+		},
+		{
+			"ID": "TV0601",
+			"text": "Globaalimuuttuja",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TV0602",
+			"text": "Listan palautus ja paluuarvon tallennus ristiriidassa",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 0.7,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "TV0603",
+			"text": "Useita paluuarvoja ilman syytä",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 0.7,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "TV0604",
+			"text": "return puuttuu",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			},"alternatives":["TV0605"]
+		},
+		{
+			"ID": "TV0605",
+			"text": "returnin paluuarvo puuttuu",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TK0700",
+			"text": "Tiedosto luetaan muualla kuin lukemisvalinnassa",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TK0701",
+			"text": "Tiedosto kirjoitetaan muualla kuin kirjoitusvalinnassa",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TK0702",
+			"text": "Tiedostokahva parametrina",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 1,
+				"All": 2
+
+			}
+		},
+		{
+			"ID": "TK0703",
+			"text": "Tiedosto sulkematta",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+
+				},"alternatives":["TK0704","TK0705"]
+			},
+			{
+				"ID": "TK0704",
+				"text": "close komennosta puuttuvat sulut",
+				"category":"Tiedostonkäsittely",
+				"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+
+			}
+
+		},
+		{
+			"ID": "TK0705",
+			"text": "Tiedosto suljetaan vain except haarassa",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1.4,
+				"3": 2,
+				"All":2
+
+			}
+
+		},
+		{
+			"ID": "TR0800",
+			"text": "Luettuja tietoja lisätään tyhjentämättömään listaan",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 0.7
+
+			}
+
+		},
+		{
+			"ID": "TR0801",
+			"text": "Tulostietorakenne ei ole tyhjä ennen analyysiä",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0802",
+			"text": "Ei lainkaan luokkaa",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0803",
+			"text": "Luokka ei päätasolla",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0804",
+			"text": "Luokan käyttö suoraan ilman oliota",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0805",
+			"text": "Oliota ei ole käytetty oikein/järkevästi",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TR0806",
+			"text": "Oliolista on luokan attribuutti",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0807",
+			"text": "Ei ole oliolistaa",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TR0808",
+			"text": "Oliolistan oliossa vain 1 attribuutti",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "TR0809",
+			"text": "Datalistaa ei läpikäydä silmukalla vaan indekseillä",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 1,
+				"All":2
+
+			}
+
+		},
+		{
+			"ID": "TR0810",
+			"text": "Tietorakenteita ei tyhjennetä lopussa",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 0.7,
+				"3": 1,
+				"All": 1
+			}
+
+		},
+		{
+			"ID": "PK0900",
+			"text": "Ennen analyysiä ja lukemista ei tarkisteta listan tyhjyyttä",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 1,
+				"2": 1.5,
+				"3": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "PK0901",
+			"text": "Tyhjyydentarkistus vain try:lla",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PK0902",
+			"text": "Tyhjyydentarkistus vain aliohjelmassa",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PK0903",
+			"text": "Exceptistä puuttuu virhetyyppi",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PK0904",
+			"text": "Exceptissä väärä virhetyyppi tiedostonkäsittelyssä",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 1,
+				"2": 1.5,
+				"4": 2,
+				"All": 2
+			},
+			"alternatives":["PK0903"]
+
+		},
+		{
+			"ID": "PK0905",
+			"text": "Poikkeustenkäsittely puuttuu avaamisesta",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "PK0906",
+			"text": "Poikkeustenkäsittely puuttuu otsikkorivistä (kirjoittamisessa tai lukemisessa)",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1.2,
+				"4": 2,
+				"All":2
+			}
+		},
+		{
+			"ID": "PK0907",
+			"text": "Poikkeustenkäsittely puuttuu koko kirjoittamisesta",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 1,
+				"2": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "PK0908",
+			"text": "Poikkeustenkäsittely puuttuu koko lukemisesta",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 1,
+				"2": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PK0909",
+			"text": "Poikkeustenkäsittely puuttuu sulkemisesta",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0
+			}
+		},
+		{
+			"ID": "PK0910",
+			"text": "Tiedostonkäsittelyn poikkeustenkäsittely pääohjelman puolella",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PK0911",
+			"text": "Poikkeustenkäsittely valikossa, mutta väärin",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7
+			}
+
+		},
+		{
+			"ID": "PK0912",
+			"text": "Poikkeustenkäsittelyssä ei ole eritelty tiedostonkäsittelyä ja listan tyhjyyttä",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PK0913",
+			"text": "Puuttuu sys.exit(0) virheen sattuessa",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"6": 2,
+				"All": 2
+			}
+
+		},
+		{
+			"ID": "ST1000",
+			"text": "Epäselvät/mitään sanomattomat muuttujien nimet",
+			"category":"Selkeys / Tyyli",
+			"error_values": {
+				"1": 0.7,
+				"All": 1
+
+			}
+		},
+		{
+			"ID": "ST1001",
+			"text": "Toteutuksen muotoilu vaikeuttaa ymmärrettävyyttä",
+			"category":"Selkeys / Tyyli",
+			"error_values": {
+				"1": 0.7,
+				"All": 1
+
+			}
+		},
+		{
+			"ID": "ST1002",
+			"text": "Kurssilla käsittelemätön ratkaisu, mutta väärin",
+			"category":"Selkeys / Tyyli",
+			"error_values": {
+				"1": 0.7,
+				"All": 1
+			}
+		},
+		{
+			"ID": "ST1003",
+			"text": "Muu epäselvä ratkaisu (liitä mukaan koodi)",
+			"category":"Selkeys / Tyyli",
+			"error_values": {
+				"1": 0.7,
+				"3": 1
+			}
+		}
+	]
+}
