@@ -15,6 +15,7 @@ import GradingGUI_library as guilib
 #V0.3.2 Fixed another bug with copy function and changed file path split to fix problems.
 #V0.3.3 Fixed first category not copying properly.
 #V0.3.4 Added constants for font and rows amount and updated copied text.
+#V0.3.5 Changed error values to not fail student if student is not over threshold
 FONT_SIZE = 11 # Default font size
 PROBLEM_LIST_ROWS = 15 # How many rows are shown to user.
 L08T5 = True # For L08-T5 checking.
@@ -171,7 +172,7 @@ def main():
                         virheen_lukumaara = 0
                         errorlist[selected_mistake] = virheen_lukumaara
                     window['-TREE-'].update(key = selected_mistake, value = errorlist[selected_mistake])
-                
+
        ### If all occurances are wrong ###
         if event == 'ALL':
             window['-TREE-'].update(key = values['-TREE-'][0], value = -1)
@@ -219,7 +220,9 @@ def main():
                                 for i in category_list:
                                     if kategoria == i.category:
                                         i.category_sum = category_sum
-                                        if category_sum > 0:
+                                        if (category_sum > 0 
+                                                and "virhepisteet" in selected_student 
+                                                and selected_student["virhepisteet"] >= FAIL_LIMIT):
                                             i.status = "EiOK"        
                                 category_sum = 0
                             kategoria = parent_node.text
@@ -228,7 +231,9 @@ def main():
                 for i in category_list:
                     if kategoria == i.category:
                         i.category_sum = category_sum
-                        if category_sum > 0:
+                        if (category_sum > 0 
+                                and "virhepisteet" in selected_student 
+                                and selected_student["virhepisteet"] >= FAIL_LIMIT):
                             i.status = "EiOK"
             counter = 0                    
             

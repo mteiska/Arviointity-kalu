@@ -344,10 +344,7 @@
 			"text": "returnin paluuarvo puuttuu",
 			"category":"Tiedonvälitys",
 			"error_values": {
-				"1": 0.7,
-				"2": 1,
-				"4": 1.5,
-				"6": 2,
+				"1": 2,
 				"All": 2
 			}
 		},
@@ -425,8 +422,8 @@
 			"text": "Luettuja tietoja lisätään tyhjentämättömään listaan",
 			"category":"Tietorakenteet",
 			"error_values": {
-				"1": 0.7
-
+				"1": 0,
+				"All": 0
 			}
 
 		},
@@ -435,11 +432,8 @@
 			"text": "Tulostietorakenne ei ole tyhjä ennen analyysiä",
 			"category":"Tietorakenteet",
 			"error_values": {
-				"1": 0.7,
-				"2": 1,
-				"4": 1.5,
-				"6": 2,
-				"All": 2
+				"1": 0,
+				"All": 0
 			}
 		},
 		{
@@ -524,9 +518,8 @@
 			"text": "Tietorakenteita ei tyhjennetä lopussa",
 			"category":"Tietorakenteet",
 			"error_values": {
-				"1": 0.7,
-				"3": 1,
-				"All": 1
+				"1": 2,
+				"All": 2
 			}
 
 		},
@@ -685,9 +678,8 @@
 			"text": "Epäselvät/mitään sanomattomat muuttujien nimet",
 			"category":"Selkeys / Tyyli",
 			"error_values": {
-				"1": 0.7,
-				"All": 1
-
+				"1": 0,
+				"All": 0
 			}
 		},
 		{
@@ -695,8 +687,8 @@
 			"text": "Toteutuksen muotoilu vaikeuttaa ymmärrettävyyttä",
 			"category":"Selkeys / Tyyli",
 			"error_values": {
-				"1": 0.7,
-				"All": 1
+				"1": 0,
+				"All": 0
 
 			}
 		},
