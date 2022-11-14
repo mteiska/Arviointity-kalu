@@ -14,11 +14,33 @@ import GradingGUI_library as guilib
 #V0.3.1 Fixed bug with copy function.
 #V0.3.2 Fixed another bug with copy function and changed file path split to fix problems.
 #V0.3.3 Fixed first category not copying properly.
+#V0.3.4 Added constants for font and rows amount and updated copied text.
+FONT_SIZE = 11 # Default font size
+PROBLEM_LIST_ROWS = 15 # How many rows are shown to user.
+L08T5 = True # For L08-T5 checking.
+
+FAIL_LIMIT = 2 
+FAIL_TEXT = "Harjoitustyön Palautus on korjattava."
+PASS_TEXT = "Harjoitustyön Palautus on hyväksytty."
+
+
+
+
+if (L08T5):
+    FAIL_LIMIT = 1
+    FAIL_TEXT = 'L08T5 ohjelman rakenne "ei ole annettujen ohjeiden mukainen".'
+    PASS_TEXT = 'L08T5 ohjelman rakenne "on kunnossa".'
+
+    
+
+
+
+
+
+
 sg.theme('BlueMono')      
-font = ("Arial", 11)
-
+font = ("Arial", FONT_SIZE)
 treedata = sg.TreeData()
-
 
 starting_path = sg.popup_get_folder('Anna näytettävä kansio')
 
@@ -53,7 +75,7 @@ treecol = [[sg.Tree(data=studentdata,
                    headings=['lkm' ],
                    auto_size_columns=False,
                    select_mode=sg.TABLE_SELECT_MODE_EXTENDED,
-                   num_rows=15,
+                   num_rows=PROBLEM_LIST_ROWS,
                    col0_heading = 'Ongelmat koodissa',
                    col0_width = 56,
                    col_widths= 2,
@@ -159,6 +181,13 @@ def main():
         if event == '-PROGRAMS-':
             printlist.clear()
             selected_student = values['-PROGRAMS-'][0]
+            category_texts = ["toiminnallisuus tehtäväksiannon mukaan ja CodeGradesta läpi",
+            "tiedostorakenne useita tiedostoja", "ohjeiden mukaiset alkukommentit", "ohjelmarakenne pääohjelma ja aliohjelmat", 
+            "perusoperaatiot tulostus, syöte, valintarakenne, toistorakenne",
+            "tiedonvälitys parametrit ja paluuarvot, ei globaaleja muuttujia", "tiedostonkäsittely luku ja kirjoittaminen", 
+            "tietorakenteet lista, luokka ja olio",
+            "poikkeustenkäsittely tiedostonkäsittelyssä",
+            "toteutuksen selkeys, ymmärrettävä, ylläpidettävä ja laajennettava"]
             k = guilib.key_define(tree)
             path2 = guilib.update_fields(selected_student, students,window, errorlist, k, studentdata, treedata)
             print("PATH2 update fieldsin jälkeen", path2)
@@ -202,9 +231,19 @@ def main():
                         if category_sum > 0:
                             i.status = "EiOK"
             counter = 0                    
+            
             for i in category_list:  
                 counter += 1
-                printlist.append(str(counter)+". "+i.category+" on "+ i.status)   
+                if (L08T5 and counter == 9):
+                    printlist.append(str(counter)+". "+category_texts[counter-1]+": - ei arvioida L08-tehtävässä")
+
+                else:
+                    printlist.append(str(counter)+". "+category_texts[counter-1]+": "+ i.status)   
+            if ("virhepisteet" in selected_student and selected_student["virhepisteet"] >= FAIL_LIMIT):
+                printlist.insert(0, FAIL_TEXT)
+            else:
+                printlist.insert(0, PASS_TEXT)
+            
             for printtaus in printlist:
                 print(printtaus)
             index = 0
