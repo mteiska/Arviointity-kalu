@@ -265,29 +265,6 @@
 			}
 		},
 		{
-			"ID": "PO0505",
-			"text": "Ei vakiokokoisen listan pituus alustettu etukäteen",
-			"feedback": "Dynaamisesti muuttuvan listan pituus on kovakoodattu etukäteen.",
-			"category":"Tietorakenteet",
-			"error_values": {
-				"1": 0.7,
-				"All": 2
-			}
-		},
-		{
-			"ID": "PO0509",
-			"text": "Viikonpäiville (tai muulle yli 5 asialle) erilliset muuttujat",
-			"feedback": "Aliohjelmassa X määritellyt muuttujat Y:lle tulisi korvata tietorakenteella.",
-			"category":"Tietorakenteet",
-			"error_values": {
-				"1": 0.7,
-				"2": 1,
-				"4": 1.5,
-				"7": 2,
-				"All": 2
-			}
-		},
-		{
 			"ID": "TV0600",
 			"text": "Tallennukseen lähetetään luettu tieto, ei analysoitu",
 			"feedback": "Tallennus aliohjelmaan lähetetään luetut tiedot, eikä analysoituja tietoja.",
@@ -421,6 +398,29 @@
 				"2": 1,
 				"4": 1.5,
 				"6": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PO0505",
+			"text": "Ei vakiokokoisen listan pituus alustettu etukäteen",
+			"feedback": "Dynaamisesti muuttuvan listan pituus on kovakoodattu etukäteen.",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 0.7,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PO0509",
+			"text": "Viikonpäiville (tai muulle yli 5 asialle) erilliset muuttujat",
+			"feedback": "Aliohjelmassa X määritellyt muuttujat Y:lle tulisi korvata tietorakenteella.",
+			"category":"Tietorakenteet",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"4": 1.5,
+				"7": 2,
 				"All": 2
 			}
 		},
