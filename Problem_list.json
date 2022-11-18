@@ -11,7 +11,6 @@
 				"1": 2,
 				"All": 2
 			}
-
 		},
 		{
 			"ID": "TO0101",
@@ -31,7 +30,6 @@
 			"error_values": {
 				"1": 2,
 				"All": 2
-
 			}
 		},
 		{
@@ -43,7 +41,6 @@
 				"1": 2,
 				"All": 2
 			}
-
 		},
 		{
 			"ID": "TR0201",
@@ -258,50 +255,6 @@
 			}
 		},
 		{
-			"ID": "PO0500",
-			"text": "Minimiä ja/tai maksimia ei alusteta lainkaan",
-			"feedback": "Analyysissä ei alusteta arvoja minimille ja/tai maksimille.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 0.7,
-				"2": 1,
-				"All": 1
-			},
-			"exclude":["PO0501"]
-		},
-		{
-			"ID": "PO0501",
-			"text": "Min/max päivämäärä ei alusteta",
-			"feedback": "Analyysissä ei alusteta arvoja minimin ja/tai maksimin päivämäärille.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 0.7,
-				"All": 0.7
-			},
-			"exclude":["PO0500"]
-		},
-		{
-			"ID": "PO0502",
-			"text": "Yhtä suurista arvoista ei valita oikeaa arvoa",
-			"feedback": "Yhtä suurista arvoista ei valita arvoa tehtävänannon määrittämällä tavalla.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 0.7,
-				"All": 0.7
-			}
-		},
-		{
-			"ID": "PO0503",
-			"text": "Arvojen alustus muulla kuin ensimmäisellä alkiolla (tai None ja ehto)",
-			"feedback": "Analyysissä etsittäviä arvoja ei alusteta datan ensimmäisen alkion arvoilla.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 0.7,
-				"3": 1,
-				"All": 1
-			}
-		},
-		{
 			"ID": "PO0504",
 			"text": "Silmukassa indeksi muuttuu muulla kuin 1",
 			"feedback": "Silmukassa indeksiä muutetaan muulla arvolla kuin 1.",
@@ -318,39 +271,6 @@
 			"category":"Tietorakenteet",
 			"error_values": {
 				"1": 0.7,
-				"All": 2
-			}
-		},
-		{
-			"ID": "PO0506",
-			"text": "Laskennan tulosta muutetaan vakiolla, esim. +1 tai -1, ilman syytä",
-			"feedback": "Analyysissä tulosta muutetaan vakion avulla vastaamaan kysyttyä arvoa.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 2,
-				"All": 2
-			}
-		},
-		{
-			"ID": "PO0507",
-			"text": "Analyysissä pieni if-pyramidi",
-			"feedback": "Analyysi on toteutettu monimutkaisesti ehtolauseilla.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 0.4,
-				"2": 0.7,
-				"3": 0.9,
-				"4": 1,
-				"All": 1
-			}
-		},
-		{
-			"ID": "PO0508",
-			"text": "Koko analyysi pelkällä if pyramidilla",
-			"feedback": "Analyysin koko toteutus perustuu useisiin ehtolauseisiin.",
-			"category":"Analyysin toteutus",
-			"error_values": {
-				"1": 2,
 				"All": 2
 			}
 		},
@@ -509,17 +429,6 @@
 			"text": "Luettuja tietoja lisätään tyhjentämättömään listaan",
 			"feedback": "Luettaessa tiedosto useaan kertaan ei listaa tyhjennetä lukukertojen välissä.",
 			"category":"Tietorakenteet",
-			"error_values": {
-				"1": 0.7,
-				"2": 1,
-				"All": 1
-			}
-		},
-		{
-			"ID": "TR0801",
-			"text": "Tulostietorakenne ei ole tyhjä ennen analyysiä",
-			"feedback": "Analysoitaessa tiedot useaan kertaan ei tulostietorakennetta tyhjennetä analyysien välissä.",
-			"category":"Analyysin toteutus",
 			"error_values": {
 				"1": 0.7,
 				"2": 1,
@@ -796,6 +705,94 @@
 				"4": 1.5,
 				"6": 2,
 				"All": 2
+			}
+		},
+		{
+			"ID": "PO0500",
+			"text": "Minimiä ja/tai maksimia ei alusteta lainkaan",
+			"feedback": "Analyysissä ei alusteta arvoja minimille ja/tai maksimille.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"All": 1
+			},
+			"exclude":["PO0501"]
+		},
+		{
+			"ID": "PO0501",
+			"text": "Min/max päivämäärä ei alusteta",
+			"feedback": "Analyysissä ei alusteta arvoja minimin ja/tai maksimin päivämäärille.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.7,
+				"All": 0.7
+			},
+			"exclude":["PO0500"]
+		},
+		{
+			"ID": "PO0502",
+			"text": "Yhtä suurista arvoista ei valita oikeaa arvoa",
+			"feedback": "Yhtä suurista arvoista ei valita arvoa tehtävänannon määrittämällä tavalla.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.7,
+				"All": 0.7
+			}
+		},
+		{
+			"ID": "PO0503",
+			"text": "Arvojen alustus muulla kuin ensimmäisellä alkiolla (tai None ja ehto)",
+			"feedback": "Analyysissä etsittäviä arvoja ei alusteta datan ensimmäisen alkion arvoilla.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.7,
+				"3": 1,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PO0506",
+			"text": "Laskennan tulosta muutetaan vakiolla, esim. +1 tai -1, ilman syytä",
+			"feedback": "Analyysissä tulosta muutetaan vakion avulla vastaamaan kysyttyä arvoa.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "PO0507",
+			"text": "Analyysissä pieni if-pyramidi",
+			"feedback": "Analyysi on toteutettu monimutkaisesti ehtolauseilla.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.4,
+				"2": 0.7,
+				"3": 0.9,
+				"4": 1,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PO0508",
+			"text": "Koko analyysi pelkällä if pyramidilla",
+			"feedback": "Analyysin koko toteutus perustuu useisiin ehtolauseisiin.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0801",
+			"text": "Tulostietorakenne ei ole tyhjä ennen analyysiä",
+			"feedback": "Analysoitaessa tiedot useaan kertaan ei tulostietorakennetta tyhjennetä analyysien välissä.",
+			"category":"Analyysin toteutus",
+			"error_values": {
+				"1": 0.7,
+				"2": 1,
+				"All": 1
 			}
 		},
 		{
