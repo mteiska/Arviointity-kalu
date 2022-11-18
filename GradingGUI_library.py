@@ -139,7 +139,7 @@ def read_json_update_students(students):
         pass
 
 
-def update_error_points(window, baseinfo, students, treedata):
+def update_error_points(window, baseinfo, students, treedata, maxgrades, limit):
     alternative_added = False
     try:
         kategoria = ""
@@ -188,6 +188,7 @@ def update_error_points(window, baseinfo, students, treedata):
             errorpoints = round(errorpoints, 1)
             selected_student["virhepisteet"] = errorpoints
             window["-virheout-"].update(errorpoints)
+            update_grades(window, errorpoints, maxgrades, limit)
             print(selected_student)
 
     except UnboundLocalError as e:
@@ -196,9 +197,28 @@ def update_error_points(window, baseinfo, students, treedata):
     # Lets clear the variable for new mistake points
     errorpoints = 0
 
+def update_grades(window, errorpoints, maxgrades, limit ):
+    if errorpoints >= limit:
+        window["-arvosana_minimi-"].update(0)
+        window["-arvosana_perus-"].update(0)
+        window["-arvosana_tavoite-"].update(0)
+    elif 1 <= errorpoints < limit:
+        window["-arvosana_minimi-"].update(0)
+        window["-arvosana_perus-"].update(maxgrades["perus"]-1)
+        window["-arvosana_tavoite-"].update(maxgrades["tavoite"]-1)
+
+
+    else:
+        window["-arvosana_minimi-"].update(maxgrades["minimi"])
+        window["-arvosana_perus-"].update(maxgrades["perus"])
+        window["-arvosana_tavoite-"].update(maxgrades["tavoite"])
+
+    
+
+    
 
 def update_fields(
-    selected_student, students, window, errorlist, k, studentdata, treedata
+    selected_student, students, window, errorlist, k, studentdata, treedata, maxgrades, limit
 ):
 
     node = studentdata.tree_dict[k]
@@ -220,9 +240,13 @@ def update_fields(
             if student == student_path:
                 # Update mistakepoints on click
                 if "virhepisteet" in students[student_path]:
-                    window["-virheout-"].update(students[student_path]["virhepisteet"])
+                    window["-virheout-"].update(x:=students[student_path]["virhepisteet"])
+                    update_grades(window, x, maxgrades, limit )
+
                 else:
                     window["-virheout-"].update(0)
+                    update_grades(window, 0, maxgrades, limit )
+                
 
                 for key in treedata.tree_dict:
                     node = treedata.tree_dict[key]

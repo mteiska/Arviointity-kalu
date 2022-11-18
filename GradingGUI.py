@@ -17,13 +17,27 @@ import GradingGUI_library as guilib
 # V0.3.4 Added constants for font and rows amount and updated copied text.
 # V0.3.5 Changed error values to not fail student if student is not over threshold
 # V0.3.6 Added error comment texts 
+# V0.3.7 Added suggested grades
+
 FONT_SIZE = 11  # Default font size
 PROBLEM_LIST_ROWS = 15  # How many rows are shown to user.
 L08T5 = False  # For L08-T5 checking.
+REATTEMPT = False
+
 
 FAIL_LIMIT = 2
 FAIL_TEXT = "Harjoitustyön Palautus on korjattava."
 PASS_TEXT = "Harjoitustyön Palautus on hyväksytty."
+MAX_GRADES = {
+            "minimi" : 1,
+            "perus": 3,
+            "tavoite" : 5
+}
+
+if REATTEMPT:
+    MAX_GRADES["minimi"] = 1
+    MAX_GRADES["perus"] = 2
+    MAX_GRADES["tavoite"] = 4
 
 
 if L08T5:
@@ -117,6 +131,10 @@ buttoncol = [
     ],
     [sg.Button("Ei yhtään oikein", key="ALL")],
     [sg.Text("Virhepisteet ovat:"), sg.Txt(key="-virheout-", text=0)],
+    [sg.Text("Arvosanat:")],
+    [sg.Text("Minimitaso:"), sg.Txt(key="-arvosana_minimi-", text=MAX_GRADES["minimi"])],
+    [sg.Text("Perustaso:"), sg.Txt(key="-arvosana_perus-", text=MAX_GRADES["perus"])],
+    [sg.Text("Tavoitetaso:"), sg.Txt(key="-arvosana_tavoite-", text=MAX_GRADES["tavoite"])],
 ]
 
 ### Layout for GUI ####
@@ -249,7 +267,7 @@ def main():
             ]
             k = guilib.key_define(tree)
             path2 = guilib.update_fields(
-                selected_student, students, window, errorlist, k, studentdata, treedata
+                selected_student, students, window, errorlist, k, studentdata, treedata, MAX_GRADES, FAIL_LIMIT
             )
             print("PATH2 update fieldsin jälkeen", path2)
             window["virheteksti"].update(value="")
@@ -303,6 +321,13 @@ def main():
                             and selected_student["virhepisteet"] >= FAIL_LIMIT
                         ):
                             i.status = "EiOK"
+                        elif (
+                            not L08T5
+                            and category_sum > 0
+                            and "virhepisteet" in selected_student
+                            and selected_student["virhepisteet"] < FAIL_LIMIT
+                        ):
+                            i.status = "Kesken"
             counter = 0
             printlist.append("Tarkempi arviointi:")
             for i in category_list:
@@ -441,6 +466,7 @@ def main():
                 errorpoints = round(errorpoints, 1)
                 selected_student["virhepisteet"] = errorpoints
                 window["-virheout-"].update(errorpoints)
+                guilib.update_grades(window, errorpoints, MAX_GRADES, FAIL_LIMIT )
                 print(selected_student)
 
             except UnboundLocalError as e:
@@ -478,7 +504,7 @@ def main():
             except Exception as e:
                 print("File opening failed with error code:", e)
         if event == "Päivitä virhepisteet":
-            guilib.update_error_points(window, baseinfo, students, treedata)
+            guilib.update_error_points(window, baseinfo, students, treedata, MAX_GRADES, FAIL_LIMIT)
             # WIP:Vaihda for looppiin joka päivittää students dictissä olevat virhepisteet nyt uusiin laskettuihin.
 
         if event == "-COPY-":
