@@ -16,6 +16,7 @@ import GradingGUI_library as guilib
 # V0.3.3 Fixed first category not copying properly.
 # V0.3.4 Added constants for font and rows amount and updated copied text.
 # V0.3.5 Changed error values to not fail student if student is not over threshold
+# V0.3.6 Added error comment texts 
 FONT_SIZE = 11  # Default font size
 PROBLEM_LIST_ROWS = 15  # How many rows are shown to user.
 L08T5 = False  # For L08-T5 checking.
@@ -144,8 +145,9 @@ def main():
     index = 0
     virhekoodi = []
     printlist = []
+    feedbacklist = []
     guilib.add_files_in_folder("", starting_path, studentdata)
-    errorlist, category_list = guilib.initiate_problem_list(
+    baseinfo, category_list = guilib.initiate_problem_list(
         treedata
     )  # WIP: Tee opiskelijakohtainen kopio category_list:istä
     students = guilib.read_json_update_students(students)
@@ -230,6 +232,7 @@ def main():
 
         if event == "-PROGRAMS-":
             printlist.clear()
+            feedbacklist.clear()
             selected_student = values["-PROGRAMS-"][0]
             category_texts = [
                 "toiminnallisuus tehtäväksiannon mukaan ja CodeGradesta läpi",
@@ -256,17 +259,18 @@ def main():
                 i.status = "OK"
 
             ### Lets make sure that all the category amounts are zero
-            category_sum = guilib.clear_sums(window, errorlist, treedata)
+            category_sum = guilib.clear_sums(window, baseinfo, treedata)
 
             ### Counting category sums ###
 
             selected_student = students[path2]
             if selected_student != []:
-                for error in errorlist:
+                for error in baseinfo:
                     if error.error in selected_student.keys():
                         if selected_student[error.error] == 0:
                             del selected_student[error.error]
                             continue
+                        feedbacklist.append(error.feedback)
                         node = treedata.tree_dict[error.error]
                         parent_node = treedata.tree_dict[node.parent]
                         if parent_node.parent == "":
@@ -300,7 +304,7 @@ def main():
                         ):
                             i.status = "EiOK"
             counter = 0
-
+            printlist.append("Tarkempi arviointi:")
             for i in category_list:
                 counter += 1
                 if L08T5 and counter == 9:
@@ -324,17 +328,22 @@ def main():
                 and selected_student["virhepisteet"] >= FAIL_LIMIT
             ):
                 printlist.insert(0, FAIL_TEXT)
+                
             else:
                 printlist.insert(0, PASS_TEXT)
 
             for printtaus in printlist:
                 print(printtaus)
+            printlist.append("\nKommentit:")
+            for feedback in feedbacklist:
+                printlist.append(feedback)
 
             index = 0
 
         ###Adding checkboxes next to student names for easier marking ###
         if event.endswith("DOUBLE"):
             guilib.double_click(tree, studentdata)
+
 
         ### Save added rows to other tree structure ###
         if event == "SAVE":
@@ -367,13 +376,13 @@ def main():
             alternative_added = False
             try:
                 kategoria = ""
-                category_sum = guilib.clear_sums(window, errorlist, treedata)
+                category_sum = guilib.clear_sums(window, baseinfo, treedata)
                 selected_student = students[path2]
                 guilib.remove_excludes(
-                    selected_student, errorlist
+                    selected_student, baseinfo
                 )  # Remove excluded error from list if found
                 print(selected_student)
-                for error in errorlist:
+                for error in baseinfo:
 
                     if selected_student != []:
                         if error.error in selected_student.keys():
@@ -402,7 +411,7 @@ def main():
                                 alternative_added,
                             ) = guilib.count_alternative_points(
                                 error,
-                                errorlist,
+                                baseinfo,
                                 selected_student,
                                 alternative_added,
                                 errorpoints,
@@ -469,7 +478,7 @@ def main():
             except Exception as e:
                 print("File opening failed with error code:", e)
         if event == "Päivitä virhepisteet":
-            guilib.update_error_points(window, errorlist, students, treedata)
+            guilib.update_error_points(window, baseinfo, students, treedata)
             # WIP:Vaihda for looppiin joka päivittää students dictissä olevat virhepisteet nyt uusiin laskettuihin.
 
         if event == "-COPY-":
