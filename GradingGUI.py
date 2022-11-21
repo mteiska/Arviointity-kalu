@@ -16,13 +16,13 @@ import GradingGUI_library as guilib
 # V0.3.3 Fixed first category not copying properly.
 # V0.3.4 Added constants for font and rows amount and updated copied text.
 # V0.3.5 Changed error values to not fail student if student is not over threshold
-# V0.3.6 Added error comment texts 
+# V0.3.6 Added error comment texts
 # V0.3.7 Added suggested grades
 
 FONT_SIZE = 11  # Default font size
 PROBLEM_LIST_ROWS = 15  # How many rows are shown to user.
+REATTEMPT = False # For "Korjauspalautus" change to True
 L08T5 = False  # For L08-T5 checking.
-REATTEMPT = False
 
 
 FAIL_LIMIT = 2
@@ -353,7 +353,7 @@ def main():
                 and selected_student["virhepisteet"] >= FAIL_LIMIT
             ):
                 printlist.insert(0, FAIL_TEXT)
-                
+
             else:
                 printlist.insert(0, PASS_TEXT)
 

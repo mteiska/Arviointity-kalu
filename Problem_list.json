@@ -834,9 +834,8 @@
 			"feedback": "Aliohjelmassa X käytetty ratkaisu ei ole ylläpidettävä eikä ymmärrettävä.",
 			"category":"Selkeys / Tyyli",
 			"error_values": {
-				"1": 0.5,
-				"3": 1,
-				"All": 1
+				"1": 0,
+				"All": 0
 			}
 		}
 	]
