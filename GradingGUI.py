@@ -28,7 +28,7 @@ FONT_SIZE = 11  # Font size, default is 11
 PROBLEM_LIST_ROWS = 15  # How many rows are shown to user, default is 15.
 L08T5 = False  # For L08-T5 checking.
 REATTEMPT = False  # For "Korjauspalautus" change to True.
-MINIMUM_LEVEL = True  # For checking submissions from minimum level.
+MINIMUM_LEVEL = False  # For checking submissions from minimum level.
 
 
 FAIL_LIMIT = 2
