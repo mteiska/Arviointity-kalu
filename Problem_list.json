@@ -60,9 +60,7 @@
 			"error_values": {
 				"1": 2,
 				"All": 2
-			},"exclude": ["TR0203",
-						"TR0201","TR0200"
-			]
+			},"exclude": ["TR0203", "TR0201","TR0200"]
 
 		},
 		{
@@ -193,7 +191,8 @@
 			"category":"Aliohjelmarakenne",
 			"error_values": {
 				"1": 1,
-				"2": 2
+				"2": 2,
+				"All": 2
 			}
 		},
 		{
@@ -255,6 +254,26 @@
 			}
 		},
 		{
+			"ID": "AL0411",
+			"text": "KysyNimi aliohjelmaa kutsutaan muualla kuin pääohjelmassa",
+			"feedback": "Tiedoston nimeä ei lähetetä pääohjelmasta aliohjelmaan.",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 0.7,
+				"All": 0.7
+			}
+		},
+		{
+			"ID": "AL0412",
+			"text": "Valikko aliohjelma on väärin (esim. paaohjelman osana, kirjastossa)",
+			"feedback": "Valikko-aliohjelma ei ole erillisenä aliohjelmana pääohjelmatiedostossa.",
+			"category":"Aliohjelmarakenne",
+			"error_values": {
+				"1": 0.7,
+				"All": 0.7
+			}
+		},
+		{
 			"ID": "PO0504",
 			"text": "Silmukassa indeksi muuttuu muulla kuin 1",
 			"feedback": "Silmukassa indeksiä muutetaan muulla arvolla kuin 1.",
@@ -291,9 +310,6 @@
 			"category":"Tiedonvälitys",
 			"error_values": {
 				"1": 0.7,
-				"2": 1,
-				"4": 1.5,
-				"7": 2,
 				"All": 2
 			}
 		},
@@ -324,6 +340,16 @@
 			"ID": "TV0605",
 			"text": "returnin paluuarvo puuttuu",
 			"feedback": "Aliohjelmasta X puuttuu returnin paluuarvo.",
+			"category":"Tiedonvälitys",
+			"error_values": {
+				"1": 2,
+				"All": 2
+			}
+		},
+		{
+			"ID": "TR0812",
+			"text": "Luokka parametrina",
+			"feedback": "Luokka lähetetään parametrina aliohjelmaan X.",
 			"category":"Tiedonvälitys",
 			"error_values": {
 				"1": 2,
@@ -399,6 +425,16 @@
 				"4": 1.5,
 				"6": 2,
 				"All": 2
+			}
+		},
+		{
+			"ID": "TK0706",
+			"text": "Tiedosto avataan muualla kuin lukemis- tai kirjoitusaliohjelmassa",
+			"feedback": "Tiedosto avataan muualla kuin lukemis- tai kirjoitusaliohjelmassa.",
+			"category":"Tiedostonkäsittely",
+			"error_values": {
+				"1": 0.7,
+				"All": 1
 			}
 		},
 		{
@@ -539,18 +575,6 @@
 			}
 		},
 		{
-			"ID": "TR0812",
-			"text": "Luokka parametrina",
-			"feedback": "Luokka lähetetään parametrina aliohjelmaan X.",
-			"category":"Tietorakenteet",
-			"error_values": {
-				"1": 1,
-				"2": 1.5,
-				"3": 2,
-				"All": 2
-			}
-		},
-		{
 			"ID": "PK0900",
 			"text": "Ennen analyysiä ja kirjoittamista ei tarkisteta listan tyhjyyttä",
 			"feedback": "Ohjelmassa ei tehdä virheen ennaltaehkäisyä tarkistamalla ovatko listat tyhjiä.",
@@ -579,8 +603,9 @@
 			"feedback": "Tietorakenteen tyhjyys tarkistetaan pääohjelman sijaan aliohjelmassa.",
 			"category":"Poikkeustenkäsittely",
 			"error_values": {
-				"1": 0.5,
-				"3": 1,
+				"1": 0.7,
+				"2": 0.7,
+				"4": 1,
 				"All": 1
 			}
 		},
@@ -597,14 +622,12 @@
 		},
 		{
 			"ID": "PK0904",
-			"text": "Exceptissä toimimaton virhetyyppi tiedostonkäsittelyssä",
+			"text": "Tiedostonkäsittelyssä muu virhetyyppi kuin Exception",
 			"feedback": "Exceptistä on väärä virhetyyppi. Tarkkailtavan poikkeuksen tulisi olla Exception.",
 			"category":"Poikkeustenkäsittely",
 			"error_values": {
-				"1": 1,
-				"2": 1.5,
-				"4": 2,
-				"All": 2
+				"1": 0.7,
+				"All": 1
 			},
 			"alternatives":["PK0903"]
 		},
@@ -657,6 +680,7 @@
 			"category":"Poikkeustenkäsittely",
 			"error_values": {
 				"1": 0.5,
+				"2": 0.8,
 				"3": 1,
 				"All": 1
 			}
@@ -678,7 +702,8 @@
 			"category":"Poikkeustenkäsittely",
 			"error_values": {
 				"1": 0.7,
-				"3": 1
+				"3": 1,
+				"All": 1
 			}
 		},
 		{
@@ -701,9 +726,18 @@
 			"category":"Poikkeustenkäsittely",
 			"error_values": {
 				"1": 0.7,
-				"2": 1,
-				"4": 1.5,
-				"6": 2,
+				"All": 1
+			}
+		},
+		{
+			"ID": "PK0914",
+			"text": "Tarkoituksellinen poikkeuksen luominen (esim. index error)",
+			"feedback": "Poikkeustenkäsittelijää käytetään ohjelman normaaliin toimintaan.",
+			"category":"Poikkeustenkäsittely",
+			"error_values": {
+				"1": 1,
+				"2": 1.5,
+				"3": 2,
 				"All": 2
 			}
 		},
@@ -742,7 +776,7 @@
 		},
 		{
 			"ID": "PO0503",
-			"text": "Arvojen alustus muulla kuin ensimmäisellä alkiolla (tai None ja ehto)",
+			"text": "Arvojen alustus muulla kuin ensimmäisellä alkiolla (None ja ehto on OK)",
 			"feedback": "Analyysissä etsittäviä arvoja ei alusteta datan ensimmäisen alkion arvoilla.",
 			"category":"Analyysin toteutus",
 			"error_values": {
@@ -767,8 +801,8 @@
 			"feedback": "Analyysi on toteutettu monimutkaisesti ehtolauseilla.",
 			"category":"Analyysin toteutus",
 			"error_values": {
-				"1": 0.4,
-				"2": 0.7,
+				"1": 0.7,
+				"2": 0.8,
 				"3": 0.9,
 				"4": 1,
 				"All": 1
@@ -776,7 +810,7 @@
 		},
 		{
 			"ID": "PO0508",
-			"text": "Koko analyysi pelkällä if pyramidilla",
+			"text": "Koko analyysi pelkällä if-pyramidilla",
 			"feedback": "Analyysin koko toteutus perustuu useisiin ehtolauseisiin.",
 			"category":"Analyysin toteutus",
 			"error_values": {
@@ -830,6 +864,16 @@
 		},
 		{
 			"ID": "ST1003",
+			"text": "(Lähes) täysin olio-ohjelmointi ratkaisu (ilmoita näistä)",
+			"feedback": "Ohjelma on toteuttu hyödyntäen olio-ohjelmoitia vastoin kurssin ohjetta.",
+			"category":"Selkeys / Tyyli",
+			"error_values": {
+				"1": 0,
+				"All": 0
+			}
+		},
+		{
+			"ID": "ST1004",
 			"text": "Muu epäselvä ratkaisu (liitä mukaan koodi)",
 			"feedback": "Aliohjelmassa X käytetty ratkaisu ei ole ylläpidettävä eikä ymmärrettävä.",
 			"category":"Selkeys / Tyyli",

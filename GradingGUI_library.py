@@ -36,6 +36,7 @@ def initiate_problem_list(treedata):
     category_list = []
     f = open("Problem_list.json", encoding="utf-8")
     virheet = json.load(f)
+    f.close()
     category = virheet["violations"][0]["category"]
     treedata.Insert("", "Toiminnallisuus", "Toiminnallisuus", [0])
     c = Category()
@@ -133,6 +134,7 @@ def read_json_update_students(students):
             arvostellut = json.load(f)
             students = arvostellut
             print("STUDENTS LISTA OHJELMAN ALUKSI ON NYT: ", students)
+            f.close()
         return students
     except Exception as e:
         print("File open failed.", e)
@@ -165,7 +167,7 @@ def update_error_points(window, baseinfo, students, treedata, maxgrades, limit):
                         )
                         for i in error.amount:
                             if i == "All" and selected_student[error.error] == -1:
-                                errorpoints = errorpoints + int(error.severity[i])
+                                errorpoints = errorpoints + float(error.severity[i])
                                 break
                             elif i == "All" or i == "virhekoodi":
                                 continue
@@ -197,25 +199,23 @@ def update_error_points(window, baseinfo, students, treedata, maxgrades, limit):
     # Lets clear the variable for new mistake points
     errorpoints = 0
 
+
 def update_grades(window, errorpoints, maxgrades, limit ):
     if errorpoints >= limit:
         window["-arvosana_minimi-"].update(0)
         window["-arvosana_perus-"].update(0)
         window["-arvosana_tavoite-"].update(0)
+
     elif 1 <= errorpoints < limit:
         window["-arvosana_minimi-"].update(0)
         window["-arvosana_perus-"].update(maxgrades["perus"]-1)
         window["-arvosana_tavoite-"].update(maxgrades["tavoite"]-1)
-
 
     else:
         window["-arvosana_minimi-"].update(maxgrades["minimi"])
         window["-arvosana_perus-"].update(maxgrades["perus"])
         window["-arvosana_tavoite-"].update(maxgrades["tavoite"])
 
-    
-
-    
 
 def update_fields(
     selected_student, students, window, errorlist, k, studentdata, treedata, maxgrades, limit
@@ -241,12 +241,11 @@ def update_fields(
                 # Update mistakepoints on click
                 if "virhepisteet" in students[student_path]:
                     window["-virheout-"].update(x:=students[student_path]["virhepisteet"])
-                    update_grades(window, x, maxgrades, limit )
+                    update_grades(window, x, maxgrades, limit)
 
                 else:
                     window["-virheout-"].update(0)
-                    update_grades(window, 0, maxgrades, limit )
-                
+                    update_grades(window, 0, maxgrades, limit)
 
                 for key in treedata.tree_dict:
                     node = treedata.tree_dict[key]

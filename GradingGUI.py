@@ -18,11 +18,17 @@ import GradingGUI_library as guilib
 # V0.3.5 Changed error values to not fail student if student is not over threshold
 # V0.3.6 Added error comment texts
 # V0.3.7 Added suggested grades
+# V0.3.8 Fixed all wrong (-1 selection) severities to work with floats
+#        and fixed text generation of category status to work with in progress
+#        ("Kesken") status also in other but last category
+# V0.3.9 Added MINIMUM_LEVEL boolean constant to update FAIL_LIMIT to 1, if True
 
-FONT_SIZE = 11  # Default font size
-PROBLEM_LIST_ROWS = 15  # How many rows are shown to user.
-REATTEMPT = False # For "Korjauspalautus" change to True
+
+FONT_SIZE = 11  # Font size, default is 11
+PROBLEM_LIST_ROWS = 15  # How many rows are shown to user, default is 15.
 L08T5 = False  # For L08-T5 checking.
+REATTEMPT = False  # For "Korjauspalautus" change to True.
+MINIMUM_LEVEL = True  # For checking submissions from minimum level.
 
 
 FAIL_LIMIT = 2
@@ -39,12 +45,13 @@ if REATTEMPT:
     MAX_GRADES["perus"] = 2
     MAX_GRADES["tavoite"] = 4
 
-
 if L08T5:
     FAIL_LIMIT = 1
     FAIL_TEXT = 'L08T5 ohjelman rakenne "ei ole annettujen ohjeiden mukainen".'
     PASS_TEXT = 'L08T5 ohjelman rakenne "on kunnossa".'
 
+if MINIMUM_LEVEL:
+    FAIL_LIMIT = 1
 
 sg.theme("BlueMono")
 font = ("Arial", FONT_SIZE)
@@ -306,6 +313,13 @@ def main():
                                             >= FAIL_LIMIT
                                         ):
                                             i.status = "EiOK"
+                                        elif (
+                                            not L08T5
+                                            and category_sum > 0
+                                            and "virhepisteet" in selected_student
+                                            and selected_student["virhepisteet"] < FAIL_LIMIT
+                                        ):
+                                            i.status = "Kesken"
                                 category_sum = 0
                             kategoria = parent_node.text
                             category_sum = category_sum + abs(
@@ -443,7 +457,7 @@ def main():
                             )
                             for i in error.amount:
                                 if i == "All" and selected_student[error.error] == -1:
-                                    errorpoints = errorpoints + int(error.severity[i])
+                                    errorpoints = errorpoints + float(error.severity[i])
                                     break
                                 elif i == "All" or i == "virhekoodi":
                                     continue
