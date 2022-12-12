@@ -22,6 +22,7 @@ import GradingGUI_library as guilib
 #        and fixed text generation of category status to work with in progress
 #        ("Kesken") status also in other but last category
 # V0.3.9 Added MINIMUM_LEVEL boolean constant to update FAIL_LIMIT to 1, if True
+# V0.3.10 Fixed bug where add and subtract wouldn't work on values of -1 after switching students
 # V0.4.0 Add pop up for generated feedback and write feedback to file
 #        Added POPUP related constants, fixed window closing when exit
 
@@ -174,7 +175,7 @@ layout = [
 
 def main():
     errorlist = {}
-    virheen_lukumaara = 0
+    error_value = 0
     students = {}
     errorpoints = 0
     category_sum = 0
@@ -199,67 +200,33 @@ def main():
             window.close()
             break
 
-        ### Adding to problem counter ###
+        ### Adding to and subtracting from problem counter ###
         if event == "+" or event == "-":
-            if event == "+":
-                try:
-                    selected_mistake = values["-TREE-"][0]
-                    if selected_mistake in errorlist.keys():
-                        errorlist[selected_mistake] += 1
-                    else:
-                        if "path2" in locals():
-                            if selected_mistake not in students[path2]:
-                                virheen_lukumaara = 1
-                                errorlist[selected_mistake] = virheen_lukumaara
-                    try:
-                        window["-TREE-"].update(
-                            key=selected_mistake, value=errorlist[selected_mistake]
-                        )
-                    except KeyError:
-                        print("Valitse opiskelija ensin.")
-                    if students:
-                        if "path2" in locals():
-                            for student in students:
-                                if (
-                                    selected_mistake in students[student]
-                                    and student == path2
-                                ):
-                                    if students[student][selected_mistake] > 0:
-                                        students[student][selected_mistake] += 1
-                                        window["-TREE-"].update(
-                                            key=selected_mistake,
-                                            value=students[student][selected_mistake],
-                                        )
-                except IndexError:
-                    print("Listalla ei ole vielä opiskelijaa.")
-                    continue
+            selected_mistake = values["-TREE-"][0]
+            error_value = ""          # Flag for no value, since -1 and 0 are usable values
+            if selected_mistake in errorlist.keys():         # If mistake is in current list
+                error_value = errorlist[selected_mistake]       # fetch it
 
-            ### Decreasing problem counter ###
-            if event == "-":
-                if students:
-                    selected_mistake = values["-TREE-"][0]
-                    if "path2" in locals():
-                        for student in students:
-                            if (
-                                selected_mistake in students[student]
-                                and student == path2
-                            ):
-                                if students[student][selected_mistake] > 0:
-                                    students[student][selected_mistake] -= 1
-                                    window["-TREE-"].update(
-                                        key=selected_mistake,
-                                        value=students[student][selected_mistake],
-                                    )
-                if selected_mistake in errorlist:
-                    if errorlist[selected_mistake] > 0:
-                        if selected_mistake in errorlist.keys():
-                            errorlist[selected_mistake] -= 1
-                    else:
-                        virheen_lukumaara = 0
-                        errorlist[selected_mistake] = virheen_lukumaara
-                    window["-TREE-"].update(
-                        key=selected_mistake, value=errorlist[selected_mistake]
-                    )
+            elif students:                          # If we don't have a value yet, check students
+                if "path2" in locals():
+                    for student in students:                # For every "student" we have
+                        if (
+                            student == path2                            # Check if student is the current one
+                            and selected_mistake in students[student]   # Check if the selected mistake is found within the student's mistakes
+                        ):
+                            error_value = students[student][selected_mistake] # Fetch the student's value for selected mistake
+
+            if error_value == "":   # If no value was found
+                error_value = 0         # Set as 0 so we can update
+            if event == "+":        # If we're adding
+                error_value += 1
+            elif error_value > 0:   # else we're subtracting, so check we can do so
+                error_value -= 1
+
+            # Updating UI and errorlist
+            window["-TREE-"].update(key=selected_mistake, value=error_value)
+            errorlist[selected_mistake] = error_value   # Set error value to current value
+
 
         ### If all occurances are wrong ###
         if event == "ALL":
