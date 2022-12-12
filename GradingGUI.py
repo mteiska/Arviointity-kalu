@@ -22,15 +22,23 @@ import GradingGUI_library as guilib
 #        and fixed text generation of category status to work with in progress
 #        ("Kesken") status also in other but last category
 # V0.3.9 Added MINIMUM_LEVEL boolean constant to update FAIL_LIMIT to 1, if True
-
+# V0.4.0 Add pop up for generated feedback and write feedback to file
+#        Added POPUP related constants, fixed window closing when exit
 
 FONT_SIZE = 11  # Font size, default is 11
-PROBLEM_LIST_ROWS = 15  # How many rows are shown to user, default is 15.
+PROBLEM_LIST_ROWS = 25  # How many rows are shown to user, default is 15.
 L08T5 = False  # For L08-T5 checking.
-REATTEMPT = False  # For "Korjauspalautus" change to True.
+REATTEMPT = True  # For "Korjauspalautus" change to True.
 MINIMUM_LEVEL = False  # For checking submissions from minimum level.
 
+# POPUP CONSTANTS
+POPUP_TEXT_DEFAULT_WIDTH = 72  # Characters
+POPUP_TEXT_DEFAULT_HEIGHT = 25 # Rows
+POPUP_FREEZE_MAIN_WINDOW = True  # If you hate this feature turn this False
+POPUP_ALWAYS_TOP = True  # If you hate this feature turn this False
+FEEDBACK_FILE = "HT_palautteet.txt"
 
+# OTHER, don't change
 FAIL_LIMIT = 2
 FAIL_TEXT = "Harjoitustyön Palautus on korjattava."
 PASS_TEXT = "Harjoitustyön Palautus on hyväksytty."
@@ -44,6 +52,8 @@ if REATTEMPT:
     MAX_GRADES["minimi"] = 1
     MAX_GRADES["perus"] = 2
     MAX_GRADES["tavoite"] = 4
+    FAIL_TEXT = "Harjoitustyön Korjauspalautus on korjattava."
+    PASS_TEXT = "Harjoitustyön Korjauspalautus on hyväksytty."
 
 if L08T5:
     FAIL_LIMIT = 1
@@ -127,6 +137,7 @@ treecol = [
         sg.Button("Tallenna", key="SAVE"),
         sg.Button("Kirjoita arvostellut työt tiedostoon", key="WRITE"),
         sg.Button("Kopioi teksti leikepöydälle", key="-COPY-"),
+        sg.Button("Muokkaa kommenttia", key="-EDIT_IN_POPUP-"),
         sg.Button("Exit"),
     ],
 ]
@@ -171,11 +182,13 @@ def main():
     virhekoodi = []
     printlist = []
     feedbacklist = []
+    feedback_comments = {}  # Dictionary for student comments
     guilib.add_files_in_folder("", starting_path, studentdata)
     baseinfo, category_list = guilib.initiate_problem_list(
         treedata
     )  # WIP: Tee opiskelijakohtainen kopio category_list:istä
     students = guilib.read_json_update_students(students)
+    feedback_comments = guilib.read_comment_file(FEEDBACK_FILE, feedback_comments)
     window = sg.Window("Grading tool", layout, resizable=True, font=font, finalize=True)
     tree = window["-PROGRAMS-"]  # type: sg.Tree
     tree.bind("<Double-1>", "+DOUBLE")
@@ -183,6 +196,7 @@ def main():
     while True:
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
+            window.close()
             break
 
         ### Adding to problem counter ###
@@ -362,6 +376,13 @@ def main():
                         + ": "
                         + i.status
                     )
+
+            # Comments to end
+            printlist.append("\nKommentit:")
+            for feedback in feedbacklist:
+                printlist.append(feedback)
+
+            # Pass or fail text
             if (
                 "virhepisteet" in selected_student
                 and selected_student["virhepisteet"] >= FAIL_LIMIT
@@ -371,12 +392,12 @@ def main():
             else:
                 printlist.insert(0, PASS_TEXT)
 
+            # If reattempt, add a separator line
+            if REATTEMPT:
+                printlist.append("#" * 72)
+
             for printtaus in printlist:
                 print(printtaus)
-            printlist.append("\nKommentit:")
-            for feedback in feedbacklist:
-                printlist.append(feedback)
-
             index = 0
 
         ###Adding checkboxes next to student names for easier marking ###
@@ -522,8 +543,78 @@ def main():
             # WIP:Vaihda for looppiin joka päivittää students dictissä olevat virhepisteet nyt uusiin laskettuihin.
 
         if event == "-COPY-":
-
             guilib.list_to_clipboard(printlist)
 
+        if event == "-EDIT_IN_POPUP-":
 
+            try:  # In case no student is selected
+                popup_student_name = path2
+            except UnboundLocalError:
+                sg.popup_ok("Valitse opiskelija ja yritä uudelleen")
+                continue
+
+            generated_txt = "\n".join(printlist)
+            popup_text = generated_txt
+            pop_up_layout = [
+                [sg.Text("Generoitu palaute")],
+                [
+                    sg.Multiline(
+                        default_text=generated_txt,
+                        size=(POPUP_TEXT_DEFAULT_WIDTH, POPUP_TEXT_DEFAULT_HEIGHT),
+                        key='-popup_textbox_generated-',
+                        horizontal_scroll=True,
+                        autoscroll=True,
+                        border_width=3,
+                        focus=True,
+                        expand_x=True,
+                        expand_y=True
+                    )
+                ],
+                [
+                    sg.Button('Tallenna generoitu puoli ja sulje', key="POPUP-SAVE-CLOSE"),
+                    sg.Push(),
+                    sg.Button('Peruuta ja jätä aiemmin muokattu voimaan', key="POPUP-CANCEL")
+                ]
+            ]
+
+            if popup_student_name in feedback_comments:
+                modified_text = feedback_comments[popup_student_name]
+                if modified_text != generated_txt:
+
+                    popup_text = modified_text
+                    pop_up_layout[0].append(
+                        sg.Text(
+                            text="Aiemmin muokattu palaute",
+                            justification="right",
+                            expand_x=True
+                        )
+                    )
+                    pop_up_layout[1].append(
+                        sg.Multiline(
+                            default_text=modified_text,
+                            size=(POPUP_TEXT_DEFAULT_WIDTH, POPUP_TEXT_DEFAULT_HEIGHT),
+                            key='-popup_textbox_modified-',
+                            horizontal_scroll=True,
+                            autoscroll=True,
+                            border_width=3,
+                            focus=True,
+                            disabled=True,
+                            expand_x=True,
+                            expand_y=True
+                        )
+                    )
+
+            popup_window = sg.Window(
+                popup_student_name,
+                pop_up_layout,
+                resizable=True,
+                grab_anywhere=True,
+                modal=POPUP_FREEZE_MAIN_WINDOW,
+                keep_on_top=POPUP_ALWAYS_TOP,
+                finalize=True
+            )
+
+            popup_text = guilib.listen_pop_up(popup_window, popup_text)
+            feedback_comments[popup_student_name] = popup_text
+            guilib.write_comment_file(FEEDBACK_FILE, feedback_comments)
 main()

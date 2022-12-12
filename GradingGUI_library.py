@@ -4,6 +4,7 @@ from io import BytesIO
 from PIL import Image, ImageDraw
 import pyperclip
 
+START_STUDENT_TEXT = "--opiskelija--"
 
 class Virhetiedot:
     error = ("",)
@@ -342,3 +343,56 @@ def list_to_clipboard(output_list):
         print("Copied to clipboard: ")
     else:
         print("There was nothing on the clipboard")
+
+
+def listen_pop_up(window, text):
+    comment_text = text  # Original text is returned if cancelled
+    while True:
+        event, values = window.read()
+        if event in (None, "POPUP-CANCEL"):
+            break
+        elif event == 'POPUP-SAVE-CLOSE':
+            comment_text = values['-popup_textbox_generated-']
+            break
+    window.close()
+    return comment_text
+
+
+def write_comment_file(filename, comments):
+    try:
+        with open(filename, "w", encoding="UTF-8") as fhandle:
+            for key, value in comments.items():
+                fhandle.write(f"{START_STUDENT_TEXT} {key}:\n")
+                fhandle.write(f"{value}\n")
+    except OSError as err:
+        print(f"Error to open file '{filename}':\n{err}")
+
+
+def read_comment_file(filename, comments):
+    try:
+        with open(filename, "r", encoding="UTF-8") as fhandle:
+            comments_str = []
+            key = None
+            for line in fhandle:
+                if line.startswith(START_STUDENT_TEXT):
+                    if key:  # If previous student exist
+                        comments[key.strip(" \r\n:")] = "".join(comments_str)
+                        comments_str.clear()
+
+                    # Get new key (i.e. student name)
+                    _, key = line.split(maxsplit=1)
+                    continue
+
+                comments_str.append(line)
+
+            # Last student
+            if key:  # If file is empty there is no key
+                comments[key.strip(" \r\n:")] = "".join(comments_str)
+                comments_str.clear()
+
+    except OSError as err:
+        print("If this was the first time to open gradertool this is okay.")
+        print(f"Error to open file '{filename}':\n{err}")
+
+
+    return comments
